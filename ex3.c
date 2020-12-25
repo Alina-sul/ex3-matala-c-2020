@@ -82,14 +82,27 @@ void Ex1()
 
 int* calcIncoming(int arr[], int length, int a, int b, int *pNewLength)
 {  
-	*pNewLength = 3;
+	int temp, count = 0; // will be used in calculations for length of new array
+	
+	for (int i = 0; i < length; i++) { //calculate new array length
+		if (arr[i] >= a || arr[i] <= b) {
+			//search for a number in range [a,b], if there is,
+			//increase count and move the value to the start of the array
+			arr[0 + count] = temp;
+			arr[0 + count] = arr[i];
+			arr[i] = temp;
+			count++;
+
+		};
+	}
+
+	*pNewLength = count;
+
 	int* incoming;
 	incoming = (int*)calloc(*pNewLength, sizeof(int));
+
 	if (incoming != NULL) {
-		printf("Enter array one number at a time: \n");
-		for (int i = 0; i < *pNewLength; i++) {
-			scanf_s("%d", &incoming[i]);
-		}
+		
 	}
 
 	
