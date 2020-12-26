@@ -90,6 +90,16 @@ int* calcIncoming(int arr[], int length, int a, int b, int *pNewLength)
 			arr[0 + count] = arr[i];
 			arr[i] = temp;
 
+			//j = count;
+			//while (j > 0) {
+				//if (arr[j] < arr[j - 1]) { //bubble sort
+					//temp = arr[j-1];
+					//arr[j-1] = arr[j];
+					//arr[j] = temp;
+				//}
+				//j--;
+			//}
+
 			count++;
 
 
@@ -105,7 +115,7 @@ int* calcIncoming(int arr[], int length, int a, int b, int *pNewLength)
 		for (int i = 0; i < *pNewLength; i++) {
 
 			for (int j = i; j < *pNewLength; j++) {
-				if (arr[j] < arr[i]) { //selection sort
+				if (arr[j] < arr[i]) {
 					temp = arr[i];
 					arr[i] = arr[j];
 					arr[j] = temp;
