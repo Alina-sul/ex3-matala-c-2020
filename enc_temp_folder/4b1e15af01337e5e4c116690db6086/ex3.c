@@ -10,6 +10,9 @@ void Ex5();
 /* Declarations of other functions */
 int* calcIncoming(int arr[], int length, int a, int b, int* pNewLength);
 
+/*..Helpers..*/
+int* swap(int arr[], int i, int j);
+
 /* ------------------------------- */
 // no need to change the main function for matala 1.
 // 
@@ -40,7 +43,8 @@ int main()
 		return 0;
 }
 
-/*.............................*/
+/*...Q1..........................*/
+
 void Ex1()
 {   
 	int a, b, n;
@@ -76,29 +80,17 @@ void Ex1()
 	free(arr);
 
 }
-
 int* calcIncoming(int arr[], int length, int a, int b, int *pNewLength)
 {  
-	int temp = 0, count = 0, j; // will be used in calculations for length of new array
+	int count = 0, j; // will be used in calculations for length of new array
 	
 	for (int i = 0; i < length; i++) { //calculate new array length
 		if (arr[i] >= a && arr[i] <= b) {
 			//search for a number in range [a,b], if there is,
 			//increase count and move the value to the start of the array
+			//to decrease next run to [count] runs
 
-			temp = arr[0 + count];
-			arr[0 + count] = arr[i];
-			arr[i] = temp;
-
-			//j = count;
-			//while (j > 0) {
-				//if (arr[j] < arr[j - 1]) { //bubble sort
-					//temp = arr[j-1];
-					//arr[j-1] = arr[j];
-					//arr[j] = temp;
-				//}
-				//j--;
-			//}
+			swap(arr, i, (0 + count));
 
 			count++;
 
@@ -115,10 +107,8 @@ int* calcIncoming(int arr[], int length, int a, int b, int *pNewLength)
 		for (int i = 0; i < *pNewLength; i++) {
 
 			for (int j = i; j < *pNewLength; j++) {
-				if (arr[j] < arr[i]) {
-					temp = arr[i];
-					arr[i] = arr[j];
-					arr[j] = temp;
+				if (arr[j] < arr[i]) { //selection sort
+					swap(arr, i, j);
 				}
 				
 				incoming[i] = arr[i];
@@ -126,13 +116,28 @@ int* calcIncoming(int arr[], int length, int a, int b, int *pNewLength)
 			
 		}
 	}
-
-
-
-	
 	return incoming;
 }
+
+/*...Q2..........................*/
+
 void Ex2() {}
+
+
+/*...Q3..........................*/
+
 void Ex3() {}
 void Ex4() {}
 void Ex5() {}
+
+/*...HELPER FUNCTIONS..........................*/
+
+int* swap(int arr[], int i, int j) {
+
+	int temp = 0;
+
+	temp = arr[i];
+	arr[i] = arr[j];
+	arr[j] = temp;
+
+};

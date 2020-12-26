@@ -10,6 +10,9 @@ void Ex5();
 /* Declarations of other functions */
 int* calcIncoming(int arr[], int length, int a, int b, int* pNewLength);
 
+/*..Helpers..*/
+int* swap(int arr[], int i, int j);
+
 /* ------------------------------- */
 // no need to change the main function for matala 1.
 // 
@@ -40,7 +43,8 @@ int main()
 		return 0;
 }
 
-/*.............................*/
+/*...Q1..........................*/
+
 void Ex1()
 {   
 	int a, b, n;
@@ -76,19 +80,17 @@ void Ex1()
 	free(arr);
 
 }
-
 int* calcIncoming(int arr[], int length, int a, int b, int *pNewLength)
 {  
-	int temp = 0, count = 0, j; // will be used in calculations for length of new array
+	int count = 0, j; // will be used in calculations for length of new array
 	
 	for (int i = 0; i < length; i++) { //calculate new array length
 		if (arr[i] >= a && arr[i] <= b) {
 			//search for a number in range [a,b], if there is,
 			//increase count and move the value to the start of the array
+			//to decrease next run to [count] runs
 
-			temp = arr[0 + count];
-			arr[0 + count] = arr[i];
-			arr[i] = temp;
+			swap(arr, i, (0 + count));
 
 			count++;
 
@@ -106,9 +108,7 @@ int* calcIncoming(int arr[], int length, int a, int b, int *pNewLength)
 
 			for (int j = i; j < *pNewLength; j++) {
 				if (arr[j] < arr[i]) { //selection sort
-					temp = arr[i];
-					arr[i] = arr[j];
-					arr[j] = temp;
+					swap(arr, i, j);
 				}
 				
 				incoming[i] = arr[i];
@@ -116,13 +116,61 @@ int* calcIncoming(int arr[], int length, int a, int b, int *pNewLength)
 			
 		}
 	}
-
-
-
-	
 	return incoming;
 }
-void Ex2() {}
+
+/*...Q2..........................*/
+
+void Ex2() {
+	int a, b, n;
+
+	printf("Enter n: \n");
+	scanf_s("%d", &n);
+	printf("Enter a: \n");
+	scanf_s("%d", &a);
+	printf("Enter b: \n");
+	scanf_s("%d", &b);
+
+	int* arr;
+	arr = (int*)calloc(n, sizeof(int));
+	int newLength = 0;
+	int* pNewLength = &newLength;
+
+	if (arr != NULL) {
+		printf("Enter array one number at a time: \n");
+		for (int i = 0; i < n; i++) {
+			scanf_s("%d", &arr[i]);
+		}
+	}
+
+	int* incoming = calcIncoming(arr, n, a, b, pNewLength);
+
+	printf("newLength %d\n", newLength);
+	printf("New array is: \n");
+	for (int i = 0; i < newLength; i++) {
+		if (i == newLength - 1) printf("%d \n", *(incoming + i));
+		else printf("%d, ", *(incoming + i));
+	}
+
+	free(arr);
+
+}
+
+
+/*...Q3..........................*/
+
 void Ex3() {}
 void Ex4() {}
 void Ex5() {}
+
+/*...HELPER FUNCTIONS..........................*/
+
+int* swap(int arr[], int i, int j) {
+
+	int temp = 0;
+
+	temp = arr[i];
+	arr[i] = arr[j];
+	arr[j] = temp;
+
+};
