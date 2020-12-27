@@ -48,13 +48,17 @@ int main()
 void Ex1()
 {   
 	int a, b, n;
-	
+	char c;
+
 	printf("Enter n: \n");
-	scanf_s("%d", &n);
+	if (scanf_s("%d%c", &n, &c) != 2 || c != '\n')
+		return printf("This is not an integer, Try again.\n\n");
 	printf("Enter a: \n");
-	scanf_s("%d", &a);
+	if (scanf_s("%d%c", &a, &c) != 2 || c != '\n')
+		return printf("This is not an integer, Try again.\n\n");
 	printf("Enter b: \n");
-	scanf_s("%d", &b);
+	if (scanf_s("%d%c", &b, &c) != 2 || c != '\n')
+		return printf("This is not an integer, Try again.\n\n");
 
 	int* arr;
 	arr = (int*)calloc(n, sizeof(int));
@@ -64,7 +68,11 @@ void Ex1()
 	if (arr != NULL) {
 		printf("Enter array one number at a time: \n");
 		for (int i = 0; i < n; i++) {
-			scanf_s("%d", &arr[i]);
+			if (scanf_s("%d%c", &arr[i], &c) != 2 || c != '\n') {
+				printf("This is not an integer, Try again.\n\n");
+				break;
+			}
+				
 		}
 	}
 
@@ -121,7 +129,11 @@ int* calcIncoming(int arr[], int length, int a, int b, int *pNewLength)
 
 /*...Q2..........................*/
 
-void Ex2() {}
+void Ex2() {
+	int a, b, n;
+
+
+}
 
 
 /*...Q3..........................*/

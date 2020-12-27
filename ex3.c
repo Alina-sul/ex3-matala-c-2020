@@ -48,13 +48,17 @@ int main()
 void Ex1()
 {   
 	int a, b, n;
-	
+	char c;
+
 	printf("Enter n: \n");
-	scanf_s("%d", &n);
+	if (scanf_s("%d%c", &n, &c) != 2 || c != '\n')
+		return printf("This is not an integer, Try again.\n\n");
 	printf("Enter a: \n");
-	scanf_s("%d", &a);
+	if (scanf_s("%d%c", &a, &c) != 2 || c != '\n')
+		return printf("This is not an integer, Try again.\n\n");
 	printf("Enter b: \n");
-	scanf_s("%d", &b);
+	if (scanf_s("%d%c", &b, &c) != 2 || c != '\n')
+		return printf("This is not an integer, Try again.\n\n");
 
 	int* arr;
 	arr = (int*)calloc(n, sizeof(int));
@@ -64,9 +68,15 @@ void Ex1()
 	if (arr != NULL) {
 		printf("Enter array one number at a time: \n");
 		for (int i = 0; i < n; i++) {
-			scanf_s("%d", &arr[i]);
+			if (scanf_s("%d%c", &arr[i], &c) != 2 || c != '\n') {
+				printf("This is not an integer, Try again.\n\n");
+				break;
+			}
+				
 		}
 	}
+
+	
 
 	int *incoming = calcIncoming(arr, n, a, b, pNewLength);
 
@@ -124,35 +134,6 @@ int* calcIncoming(int arr[], int length, int a, int b, int *pNewLength)
 void Ex2() {
 	int a, b, n;
 
-	printf("Enter n: \n");
-	scanf_s("%d", &n);
-	printf("Enter a: \n");
-	scanf_s("%d", &a);
-	printf("Enter b: \n");
-	scanf_s("%d", &b);
-
-	int* arr;
-	arr = (int*)calloc(n, sizeof(int));
-	int newLength = 0;
-	int* pNewLength = &newLength;
-
-	if (arr != NULL) {
-		printf("Enter array one number at a time: \n");
-		for (int i = 0; i < n; i++) {
-			scanf_s("%d", &arr[i]);
-		}
-	}
-
-	int* incoming = calcIncoming(arr, n, a, b, pNewLength);
-
-	printf("newLength %d\n", newLength);
-	printf("New array is: \n");
-	for (int i = 0; i < newLength; i++) {
-		if (i == newLength - 1) printf("%d \n", *(incoming + i));
-		else printf("%d, ", *(incoming + i));
-	}
-
-	free(arr);
 
 }
 
