@@ -132,7 +132,29 @@ int* calcIncoming(int arr[], int length, int a, int b, int *pNewLength)
 /*...Q2..........................*/
 
 void Ex2() {
-	int a, b, n;
+
+	int n;
+	int* arr;
+	char c;
+
+	printf("Enter n: ");
+	if (scanf_s("%d%c", &n, &c) != 2 || c != '\n') 
+		return printf("This is not an integer. Try again \n");
+	
+	arr = (int*)calloc(n, sizeof(int));
+
+	if (arr != NULL) {
+		printf("Enter array, one number at a time: \n");
+		for (int i = 0; i < n; i++) {
+			if (scanf_s("%d%c", &arr[i], &c) != 2 || c != '\n')
+				return printf("This is not an integer. Try again \n");
+			if (arr[i] < 0 || arr[i] > 3 * n)
+				return("Invalid input, value should be between 0 to 3n. Try again.");
+		}
+
+
+	}
+
 
 
 }
