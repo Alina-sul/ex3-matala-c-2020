@@ -11,6 +11,7 @@ void Ex5();
 int* calcIncoming(int arr[], int length, int a, int b, int* pNewLength);
 int repetition(int arr[], int n);
 int isConsecutive(int arr[], int n);
+int closestToZero(int arr[], int n);
 
 /*..Helpers..*/
 int* swap(int arr[], int i, int j);
@@ -266,7 +267,57 @@ int isConsecutive(int arr[], int n) {
 
 /*...Q4..........................*/
 
-void Ex4() {}
+void Ex4() {
+
+	int n;
+	int* arr;
+	char c;
+
+	printf("Enter n: ");
+	if (scanf_s("%d%c", &n, &c) != 2 || c != '\n')
+		return printf("This is not an integer. Try again \n");
+
+	arr = (int*)calloc(n, sizeof(int));
+
+	if (arr != NULL) {
+		printf("Enter array, one number at a time: \n");
+		for (int i = 0; i < n; i++) {
+			if (scanf_s("%d%c", &arr[i], &c) != 2 || c != '\n')
+				return ("This is not an integer. Try again \n");
+		}
+	}
+
+	printf("The closest number to zero is: %d\n", closestToZero(arr, n));
+
+
+
+}
+
+int closestToZero(int arr[], int n) {
+
+	
+	if (n == 2) return arr[0];
+	
+	int center = n / 2;
+
+	int* left; //initialize left side array
+	left = (int*)calloc(center, sizeof(int));
+
+	int* right; //initialize right side array
+	right = (int*)calloc((n - center), sizeof(int));
+
+	for (int i = 0; i < n / 2; i++) left[i] = arr[i];
+	for (int i = 0, j = center; i < (n - center); j++, i++) right[i] = arr[j];
+
+	if (left[center - 1] < 0 && right[0] > 0) return left[center - 1];
+	if (left[center - 1] < 0 && right[0] < 0) return closestToZero(right, (n - center));
+
+
+
+
+	return 0;
+
+}
 
 /*...Q5..........................*/
 
