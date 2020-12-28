@@ -10,6 +10,7 @@ void Ex5();
 /* Declarations of other functions */
 int* calcIncoming(int arr[], int length, int a, int b, int* pNewLength);
 int repetition(int arr[], int n);
+int isConsecutive(int arr[], int n);
 
 /*..Helpers..*/
 int* swap(int arr[], int i, int j);
@@ -156,9 +157,9 @@ void Ex2() {
 
 	(checkRepitition != -1) ? printf("First repetitive number is: %d \n", checkRepitition) :
 		printf("No repetitive numbers: %d \n", checkRepitition);
-
+	
+	free(arr);
 }
-
 int repetition(int arr[], int n) {
 
 	int result = -1; //default result
@@ -190,8 +191,73 @@ int repetition(int arr[], int n) {
 
 /*...Q3..........................*/
 
-void Ex3() {}
+void Ex3() {
+	int n;
+	int* arr;
+	char c;
+
+	printf("Enter n: ");
+	if (scanf_s("%d%c", &n, &c) != 2 || c != '\n')
+		return printf("This is not an integer. Try again \n");
+
+	arr = (int*)calloc(n, sizeof(int));
+
+	if (arr != NULL) {
+		printf("Enter array, one number at a time: \n");
+		for (int i = 0; i < n; i++) {
+			if (scanf_s("%d%c", &arr[i], &c) != 2 || c != '\n')
+				return printf("This is not an integer. Try again \n");
+			if (arr[i] < 0)
+				return printf("Number should be positive. Try again \n");
+		}
+	}
+
+	int consecutive = isConsecutive(arr, n);
+
+	(consecutive != -1) ? printf("Numbers are consecutive: %d \n", consecutive) :
+		printf("Numbers are not consecutive: %d \n", consecutive);
+
+	free(arr);
+}
+
+int isConsecutive(int arr[], int n) {
+
+	//find maximum and minimum values
+	int min = arr[0], max = arr[0];
+
+	for (int i = 0; i < n; i++) {
+		
+		if (arr[i] > max) max = arr[i];
+		if (arr[i] < min) min = arr[i];
+		if (i == n - 1 && max == min) return 0; //that means the array has the same value in each sell, 
+		//therefore is not consecutive and we return 0;
+
+	}
+
+	//create helper array
+	int length = max - min, position = 0;
+	int* helper;
+	helper = (int*)calloc(length, sizeof(int));
+
+	helper[0] = 1; //min value exists, therefore counted as 1
+	helper[length - 1] = 1; //max value exists, therefore counted as 1
+
+	//new array length is the range between min to max,
+	//for example min = 42, max = 50, length = 8
+	//if 43 exists, helper[1] will count +1
+	for(int i = 0; i < n; i++) {
+		
+		position = arr[i] - min;
+		helper[position]++;
+
+	}
+
+}
+
+/*...Q4..........................*/
 void Ex4() {}
+
+
 void Ex5() {}
 
 /*...HELPER FUNCTIONS..........................*/
