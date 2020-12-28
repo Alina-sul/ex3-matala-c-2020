@@ -219,6 +219,7 @@ void Ex3() {
 
 	free(arr);
 }
+
 int isConsecutive(int arr[], int n) {
 
 	//find maximum and minimum values
@@ -265,10 +266,8 @@ int isConsecutive(int arr[], int n) {
 }
 
 /*...Q4..........................*/
-
 void Ex4() {}
 
-/*...Q5..........................*/
 
 void Ex5() {}
 
