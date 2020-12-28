@@ -163,23 +163,26 @@ int repetition(int arr[], int n) {
 
 	int result = -1; //default result
 
-	for (int i = 0; i < n - 1 ; i++) {
+	int* numbersRange = (int*)calloc((n*3)+1, sizeof(int)); 
+	//helper array - includes all the possible n values as its index
 
-		for (int j = n - 1; j > i+1 ; j--) { 
-			// check if value in place i == i+1 or i == j or i+1 == j
-			// that way we check at once three numbers at a time and reduce the amount 
-			// of the function runs
+	if (numbersRange != NULL) {
+		for (int i = 0; i < n; i++) {
 
-			if (arr[i] == arr[i + 1] || arr[i] == arr[j]) {
-				return arr[i];
+			numbersRange[arr[i]] ++; // count the appearnce of the arr[i] value
+
+			if (numbersRange[arr[i]] > 1) { 
+				// if the count for this value is bigger than 1, 
+				//that means it has already apeard, break loop
+				result = arr[i]; 
+				break;
 			}
-			if (arr[i + 1] == arr[j]) {
-				return arr[i + 1];
-			}
+
 
 		}
-
 	}
+
+	free(numbersRange);
 
 	return result;
 
