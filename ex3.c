@@ -235,7 +235,7 @@ int isConsecutive(int arr[], int n) {
 	}
 
 	//create helper array
-	int length = max - min, position = 0;
+	int length = max - min, position = 0, result = 1;
 	int* helper;
 	helper = (int*)calloc(length, sizeof(int));
 
@@ -252,6 +252,17 @@ int isConsecutive(int arr[], int n) {
 
 	}
 
+	//check if any helper value is 0, if so, not a consecutive nubmers array
+	for (int i = 0; i < length; i ++) {
+		if (helper[i] = 0) {
+			result = 0;
+			break;
+		}
+	}
+
+	free(helper);
+
+	return result;
 }
 
 /*...Q4..........................*/
