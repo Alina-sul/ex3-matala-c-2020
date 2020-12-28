@@ -283,7 +283,9 @@ void Ex4() {
 		printf("Enter array, one number at a time: \n");
 		for (int i = 0; i < n; i++) {
 			if (scanf_s("%d%c", &arr[i], &c) != 2 || c != '\n')
-				return ("This is not an integer. Try again \n");
+				return printf("This is not an integer. Try again \n");
+			if (i != 0 && arr[i] < arr[i - 1])
+				return printf("This is not a sorted array. Try again \n");
 		}
 	}
 
@@ -296,7 +298,7 @@ void Ex4() {
 int closestToZero(int arr[], int n) {
 
 	
-	if (n == 2) return arr[0];
+	if (n == 2) return arr[0]; //recursion stop arr[0] must be negative due to sorted array
 	
 	int center = n / 2;
 
@@ -309,13 +311,17 @@ int closestToZero(int arr[], int n) {
 	for (int i = 0; i < n / 2; i++) left[i] = arr[i];
 	for (int i = 0, j = center; i < (n - center); j++, i++) right[i] = arr[j];
 
-	if (left[center - 1] < 0 && right[0] > 0) return left[center - 1];
-	if (left[center - 1] < 0 && right[0] < 0) return closestToZero(right, (n - center));
+	//if array edges are different sign (-/+) return the negative value meaning leaft array right edge
+	if (left[center - 1] < 0 && right[0] >= 0) 
+		return left[center - 1];
 
+	//if both array edges are negative, to get closer to zero, serach right array
+	if (left[center - 1] < 0 && right[0] < 0) 
+		return closestToZero(right, (n - center));
 
-
-
-	return 0;
+	//if both array edges are positive, to get closer to zero, serach left array
+	if (left[center - 1] >= 0 && right[0] >= 0) 
+		return closestToZero(left, center);
 
 }
 
