@@ -9,6 +9,7 @@ void Ex5();
 
 /* Declarations of other functions */
 int* calcIncoming(int arr[], int length, int a, int b, int* pNewLength);
+int repetition(int arr[], int n);
 
 /*..Helpers..*/
 int* swap(int arr[], int i, int j);
@@ -68,13 +69,13 @@ void Ex1()
 	if (arr != NULL) {
 		printf("Enter array one number at a time: \n");
 		for (int i = 0; i < n; i++) {
-			if (scanf_s("%d%c", &arr[i], &c) != 2 || c != '\n') {
-				printf("This is not an integer, Try again.\n\n");
-				break;
-			}
+			if (scanf_s("%d%c", &arr[i], &c) != 2 || c != '\n')
+				return printf("This is not an integer, Try again.\n\n");
 				
 		}
 	}
+
+	
 
 	int *incoming = calcIncoming(arr, n, a, b, pNewLength);
 
@@ -130,11 +131,61 @@ int* calcIncoming(int arr[], int length, int a, int b, int *pNewLength)
 /*...Q2..........................*/
 
 void Ex2() {
-	int a, b, n;
 
+	int n;
+	int* arr;
+	char c;
+
+	printf("Enter n: ");
+	if (scanf_s("%d%c", &n, &c) != 2 || c != '\n') 
+		return printf("This is not an integer. Try again \n");
+	
+	arr = (int*)calloc(n, sizeof(int));
+
+	if (arr != NULL) {
+		printf("Enter array, one number at a time: \n");
+		for (int i = 0; i < n; i++) {
+			if (scanf_s("%d%c", &arr[i], &c) != 2 || c != '\n')
+				return ("This is not an integer. Try again \n");
+			if (arr[i] < 0 || arr[i] > 3 * n)
+				return 	printf("Invalid input, value should be between 0 to 3n. Try again. \n");
+		}
+	}
+
+	int checkRepitition = repetition(arr,n);
+
+	(checkRepitition != -1) ? printf("First repetitive number is: %d \n", checkRepitition) :
+		printf("No repetitive numbers: %d \n", checkRepitition);
 
 }
 
+int repetition(int arr[], int n) {
+
+	int result = -1; //default result
+	int count = 0;
+
+	for (int i = 0; i < n - 1 ; i++) {
+
+		for (int j = n - 1; j > i+1 ; j--) { 
+			// check if value in place i == i+1 or i == j or i+1 == j
+			// that way we check at once three numbers at a time and reduce the amount 
+			// of the function runs
+
+			if (arr[i] == arr[i + 1] || arr[i] == arr[j]) {
+				return arr[i];
+			}
+			if (arr[i + 1] == arr[j]) {
+				return arr[i + 1];
+			}
+			printf("count %d\n", count++);
+
+		}
+
+	}
+
+	return result;
+
+};
 
 /*...Q3..........................*/
 
