@@ -332,7 +332,8 @@ int closestToZero(int arr[], int n) {
 
 void Ex5() {
 
-	int n, *low = 0, *high = 0;
+	int n, end = 0, start = 0;
+	int* low = &start, *high = &end;
 	char c;
 	char string[100];
 
@@ -343,52 +344,65 @@ void Ex5() {
 
 
 	printf("Enter string: ");
-	scanf_s("%s", &string, sizeof(string));
-	
+	scanf_s("%[^\n]", &string, sizeof(string));
 
-	printf("%c\n", string[n-1]);
+	int check = potenTialPolindrom(string, n, *low, *high);
 
-	potenTialPolindrom(string, n, *low, *high);
+	(check) ? printf("Its a polindrom! start = %d, end = %d \n", start, end) :
+		printf("Not a polindrom. \n");
 
 }
 
 int potenTialPolindrom(char string[], int n, int* low, int* high) {
 
 
-	int result = 1, start = 0, end = 0;
+	int result = 0;
 
 	for (int i = 0; i < n - 2; i++) {
 
+		if ((int)string[i] == 32) i = i + 1; //move to next i if char is space
+
 		for (int j = n - 1; j > i + 2; j--) {
 
-			if (string[i] == string[j]) { //potential polindrom
+			if ((int)string[j] == 32) j = j - 1; //move to next j if char is space
 
-				if (j - i == 2) { //if only three elemnts no need for further check
+			if (string[i] == string[j] || abs(string[i] - string[j]) == 32) { //potential polindrom
 
-					result = 1;
-					break;
+				low = i;
+				high = j;
+				result = 1;
 
-				}
+				if (j - i == 2) break;  //if only three elemnts no need for further check
+		
 
 				//check if polindrom
-				for (int m = i + 1, n = j - 1; m < (n / 2) - 1; m++, j--) {
+				for (int y = i + 1, x = j - 1; y < (n / 2) - 1; y++, x--) {
 
-					if (string[m] != string[n]) {
+					if ((int)string[x] == 32) x = x + 1; //move to next x if char is space
+					if ((int)string[y] == 32) y = y - 1; //move to next y if char is space
+
+					if (string[y] != string[x]) {
+						low = -1;
+						high = -1;
 						result = 0;
 						break;
 					}
-					else result = 1;
+
 
 				}
 				                                      
 			}
 
+			if (result == 1) break;
+
 		}
+
+		if (result == 1) break;
 
 
 	}
 
-	return 0;
+	return result;
 };
 
 
