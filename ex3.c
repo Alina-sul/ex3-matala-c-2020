@@ -1,5 +1,7 @@
 // Alina Sulkovsky 316015247
 #include <stdio.h>
+#include <stdlib.h>
+
 /* Function declarations */
 void Ex1();
 void Ex2();
@@ -12,6 +14,8 @@ int* calcIncoming(int arr[], int length, int a, int b, int* pNewLength);
 int repetition(int arr[], int n);
 int isConsecutive(int arr[], int n);
 int closestToZero(int arr[], int n);
+int potenTialPolindrom(char string[], int n, int* low, int* high);                 
+
 
 /*..Helpers..*/
 int* swap(int arr[], int i, int j);
@@ -291,13 +295,12 @@ void Ex4() {
 
 	printf("The closest number to zero is: %d\n", closestToZero(arr, n));
 
+	free(arr);
 
 
 }
-
 int closestToZero(int arr[], int n) {
 
-	
 	if (n == 2) return arr[0]; //recursion stop arr[0] must be negative due to sorted array
 	
 	int center = n / 2;
@@ -327,7 +330,67 @@ int closestToZero(int arr[], int n) {
 
 /*...Q5..........................*/
 
-void Ex5() {}
+void Ex5() {
+
+	int n, *low = 0, *high = 0;
+	char c;
+	char string[100];
+
+
+	printf("Enter n: ");
+	if (scanf_s("%d%c", &n, &c) != 2 || c != '\n')
+		return printf("This is not an integer. Try again \n");
+
+
+	printf("Enter string: ");
+	scanf_s("%s", &string, sizeof(string));
+	
+
+	printf("%c\n", string[n-1]);
+
+	potenTialPolindrom(string, n, *low, *high);
+
+}
+
+int potenTialPolindrom(char string[], int n, int* low, int* high) {
+
+
+	int result = 1, start = 0, end = 0;
+
+	for (int i = 0; i < n - 2; i++) {
+
+		for (int j = n - 1; j > i + 2; j--) {
+
+			if (string[i] == string[j]) { //potential polindrom
+
+				if (j - i == 2) { //if only three elemnts no need for further check
+
+					result = 1;
+					break;
+
+				}
+
+				//check if polindrom
+				for (int m = i + 1, n = j - 1; m < (n / 2) - 1; m++, j--) {
+
+					if (string[m] != string[n]) {
+						result = 0;
+						break;
+					}
+					else result = 1;
+
+				}
+				                                      
+			}
+
+		}
+
+
+	}
+
+	return 0;
+};
+
 
 /*...HELPER FUNCTIONS..........................*/
 
