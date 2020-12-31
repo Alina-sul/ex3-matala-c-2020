@@ -348,7 +348,7 @@ void Ex5() {
 
 	int check = potenTialPolindrom(string, n, low, high);
 
-	(check) ? printf("Polindrom detected! start = %d, end = %d \n", start, end) :
+	(check) ? printf("Its a polindrom! start = %d, end = %d \n", start, end) :
 		printf("Not a polindrom. \n");
 
 }
