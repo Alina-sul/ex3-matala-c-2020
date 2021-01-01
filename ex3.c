@@ -358,11 +358,11 @@ int potenTialPolindrom(char string[], int n, int* low, int* high) {
 
 	int result = 0;
 
-	for (int i = 0; i < n - 2; i++) {
+	for (int i = 0; i < n - 2; i++) {//most left value
 
 		if ((int)string[i] == 32) i = i + 1; //move to next i if char is space
 
-		for (int j = n - 1; j > i + 2; j--) {
+		for (int j = n - 1; j > i + 2; j--) { //most right value
 
 			if ((int)string[j] == 32) j = j - 1; //move to next j if char is space
 
